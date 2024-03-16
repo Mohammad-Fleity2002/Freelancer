@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block title %} {% endblock %}
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <!-- <link href="{% static 'css/main.min.css' %}" rel="stylesheet" /> -->
+    {% comment %}
+    <style>
+      .gradient-custom-2 {
+        background: #222d32;
+        /* background: #020064; */
+        background: -webkit-linear-gradient(
+          to right,
+          #222d32,
+          #061a24 /* #020064,
+          #0041b8,
+          #035cff */
+        );
+        background: linear-gradient(to right, #242a35, #061a24, #08425f);
+        /* background: linear-gradient(to right, #020064, #0041b8, #035cff); */
+      }
+      @media (min-width: 768px) {
+        .gradient-form {
+          height: 100vh !important;
+        }
+      }
+      @media (min-width: 769px) {
+        .gradient-custom-2 {
+          border-top-right-radius: 0.3rem;
+          border-bottom-right-radius: 0.3rem;
+        }
+      }
+    </style>
+    {% endcomment %} {% block style %} {% endblock style %}
+  </head>
+  <body>
+    <!-- ----------------------Navbar start -------------------- -->
+    {% if user.is_authenticated %}
+    <nav class="navbar navbar-expand-lg bg-white">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Tools</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href=" #"
+                >text-to-HTML</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#"
+                >Password Storage</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">TO-DO</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#"
+                >Weather-App</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#"
+                >My_Contact</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'Authentication:logout' %}"
+                ><i>logout</i></a
+              >
+            </li>
+          </ul>
+          {{user.username}}
+        </div>
+      </div>
+    </nav>
+    {% endif %}
+    <!-- ---------------------- messages -------------------- -->
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible fade show text-danger">
+      {{message}}
+    </div>
+    {% endfor %} {%endif %}
+    <!-- ---------------------- Navbar End -------------------- -->
+    {% block content %} {% endblock %}
+    <!-- ---------------------- Bootstrap JS -------------------- -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

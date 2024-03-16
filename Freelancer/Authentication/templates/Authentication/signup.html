@@ -1,0 +1,75 @@
+{% extends "base.html" %} {% block title %}
+<title>Sign Up</title>
+{% endblock title %} {% block style %}
+<style>
+  .card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+  }
+  .card-registration .select-arrow {
+    top: 13px;
+  }
+  .bg_radial_2 {
+    background: rgb(22, 13, 25);
+    background: linear-gradient(
+      90deg,
+      rgba(22, 13, 25, 1) 0%,
+      rgba(135, 81, 153, 1) 30%,
+      rgba(225, 135, 255, 1) 100%
+    );
+  }
+</style>
+{% endblock style %} {% block content %}
+<body class="bg_radial_2">
+  <section class="h-100">
+    {% if form.errors %}
+    <div
+      class="alert alert-warning alert-dismissible fade show text-danger pt-0 pb-0 ps-5"
+    >
+      {% for field in form %} {{field.errors}} {% endfor %}
+    </div>
+    {%endif%}
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-xl-4 col-lg-6 col-md-8">
+        <!-- Adjusted column widths for responsiveness -->
+        <div class="card rounded-3 text-black px-2">
+          <div class="row">
+            <div class="card-body p-1 m-1">
+              <h4 class="mb-2 text-center">Create New Account</h4>
+              <form action="{% url 'Authentication:signup' %}" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <!-- Reduced margin between form fields -->
+                  {% for field in form %}
+                  <label class="form-label">{{field.label}}</label>
+                  {{field}} {% endfor %}
+                </div>
+                <div class="text-center pt-1 mb-2 pb-1">
+                  <input
+                    class="btn btn-secondary btn-block fa-lg gradient-custom-2 mb-3"
+                    type="submit"
+                    value="Create Account"
+                  />
+                </div>
+                <div
+                  class="d-flex align-items-center justify-content-center pb-4"
+                >
+                  <p class="mb-0 me-2">Already have an account?</p>
+                  <a
+                    class="btn btn-outline-secondary text-decoration-none"
+                    href="{% url 'Authentication:login' %}"
+                  >
+                    Login
+                  </a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+{% endblock content %}
