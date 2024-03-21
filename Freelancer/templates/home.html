@@ -1,19 +1,14 @@
-{% extends "base.html" %} {% block title %}
+{% extends "base.html" %} {% block title %} {%load static%}
 <title>Home</title>
 {% endblock title %} {% block content %}
-<div
-  class="bg-image d-flex justify-content-center align-items-center"
-  style="
-    background-image: url('https://mdbcdn.b-cdn.net/img/new/fluid/nature/015.webp');
-    height: 93vh;
-  "
->
-  <blockquote class="text-center blockquote">
+<div class="bg-image d-flex justify-content-center align-items-center" 
+style="background-image: url('{% static 'images/Freelancers.png' %}'); height: 93vh;">
+
+  <blockquote class="text-right blockquote">
     <h3 class="text-white" style="width: 300px">
-      "Keep smiling, because life is a beautiful thing and there's so much to
-      smile about."
+      Welcome to the Freelancer Application. Our goal is to provide exemplary service by connecting you with top-tier freelancers, thus contributing to the enhancement of our nation's workforce.
+      Together, we strive towards fostering a thriving freelance ecosystem
     </h3>
-    <h6 class="text-white"><i>Marilyn Monroe</i></h6>
   </blockquote>
 </div>
 {% endblock content %}

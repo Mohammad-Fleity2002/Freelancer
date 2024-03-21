@@ -27,7 +27,7 @@ class Service(models.Model):
     service_location = models.ForeignKey(areas, on_delete=models.CASCADE)
     service_date = models.DateField()
     deleted = models.BooleanField(default=False)
-    # Add any other fields you need for the service
+   
 
     def __str__(self):
         return f"{self.freelancer.username}'s {self.service_type.type_title}"
@@ -49,7 +49,7 @@ class RateFeedback(models.Model):
     feedback_content = models.CharField(max_length=120)
     feedback_date = models.DateField()
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    # Add fields for rating and feedback
+
 
 
 class Report(models.Model):
@@ -57,4 +57,4 @@ class Report(models.Model):
     report_desc = models.CharField(max_length=120)
     report_date_date = models.DateField()
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    # Add fields for reporting
+   

@@ -31,7 +31,7 @@
                       <a href="#" class="h3 py-0 my-0 text-capitalize  fw-bold nav-link">{{user.username}}</a>
                   </li>
                   <li class="nav-item">
-                      <a href="#" class="h4 py-0 my-0 fw-bold nav-link">search</a>
+                      <a href="{% url '_Services:search_service' %}" class="h4 py-0 my-0 fw-bold nav-link">search</a>
                   </li>
                   <li class="nav-item">
                       <a href="{% url 'Authentication:logout' %}" class="h4 py-0 my-0 fw-bold  nav-link">log out</a>
