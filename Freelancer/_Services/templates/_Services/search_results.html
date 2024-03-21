@@ -1,6 +1,9 @@
-{% extends "base.html" %} {% block title %}
+{% extends "base.html" %} 
+{% block title %}
 <title>Search result</title>
-{% endblock title %} {% block style %}
+{% endblock title %} 
+
+{% block style %}
 <style>
     .service_img {
         width: 400px;
@@ -17,7 +20,9 @@
         color: linear-gradient(90deg, rgba(22, 13, 25, 1) 0%, rgba(135, 81, 153, 1) 50%, rgba(225, 135, 255, 1) 100%);
     }
 </style>
-{% endblock style %} {% block content %}
+{% endblock style %} 
+
+{% block content %}
 <body class="bg_radial_2">
     <section class="container ">
         <form action="{% url '_Services:search_service' %}" method="POST">
@@ -54,33 +59,32 @@
         </form>
         <div class="container-lg">
             {% if services %}
-    {% for service in services %}
-            <div class="container-md row border border-1 border-purple my-2 py-1 px-2" style="background:rgb(250,250,250,0.6)">
-                <div class="col-8">
-                    <h5 class="text-white d-inline-block p-1 m-0" style="background-color:rgba(225, 135, 255, 1)">
-                        {{ service.freelancer.user_first_name }} {{ service.freelancer.user_last_name }}
-                    </h5>
-                    <p class="font-italic font-weight-bold p-0 m-0">
-                        {{ service.freelancer.user_email }}
-                    </p>
-                    <p class="font-italic font-weight-light p-0 mb-1">
-                        {{ service.freelancer.user_phone_number }}
-                    </p>
-                    <p class="p-0 m-0">{{ service.service_location }}</p>
-                    <p class="font-italic font-weight-light p-0 mb-1 mx-0 mt-0">{{ service.service_location }}</p>
-                    <h6 class="font-weight-light p-0 m-0">{{ service.service_title }}</h6>
-                    <p class="font-italic font-weight-light py-1 my-1 justify-content-around">{{ service.service_title }}</p>
+                {% for service in services %}
+                    <div class="container-md row border border-1 border-purple my-2 py-1 px-2" style="background:rgb(250,250,250,0.6)">
+                        <div class="col-8">
+                            <h5 class="text-white d-inline-block p-1 m-0" style="background-color:rgba(225, 135, 255, 1)">
+                                {{ service.freelancer.username }}
+                            </h5>
+                            <p class="font-italic font-weight-bold p-0 m-0">
+                                {{ service.freelancer.email }}
+                            </p>
+                            <p class="p-0 m-0">{{ service.service_location }}</p>
+                            <p class="font-italic font-weight-light p-0 mb-1 mx-0 mt-0">{{ service.service_location }}</p>
+                            <h6 class="font-weight-light p-0 m-0">{{ service.service_title }}</h6>
+                            <p class="font-italic font-weight-light py-1 my-1 justify-content-around">{{ service.service_desc }}</p>
 
-                    <p class="container text-center">
-                        <button class="text-white btn btn-md m-0" style="background-color:rgba(22, 13, 25, 1)">
-                            <a href="{% url '#' service_id=service.service_id %}" class="text-white" style="text-decoration: none;">
-                                Feedbacks
-                            </a>
-                        </button>
-                    </p>
-                </div>
-            </div>
-    {% endfor %}
-{% endif %}
-    </div>
+                            <p class="container text-center">
+                                <button class="text-white btn btn-md m-0" style="background-color:rgba(22, 13, 25, 1)">
+                                    <a href="{% url '#' service_id=service.service_id %}" class="text-white" style="text-decoration: none;">
+                                        Feedbacks
+                                    </a>
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </section>
 </body>
+{% endblock content %}

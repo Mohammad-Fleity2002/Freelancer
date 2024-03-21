@@ -15,3 +15,5 @@ def search_service(request):
         services = Service.objects.filter(
             service_type__code_type=service_type_code, service_location=area_code)
         return render(request, '_Services/search_results.html', {'services': services})
+
+
