@@ -1,0 +1,56 @@
+{% include "base.html" %}
+
+{% block title %}
+  <title>Edit Profile</title>
+{% endblock title %}
+
+{% block style %}
+  <style>
+    .bg_radial_2 {
+      background: rgb(22, 13, 25);
+      background: linear-gradient(
+        90deg,
+        rgba(22, 13, 25, 1) 0%,
+        rgba(135, 81, 153, 1) 50%,
+        rgba(225, 135, 255, 1) 100%
+      );
+    }
+
+    .bg_radial_2_op {
+      background: rgb(22, 13, 25);
+      background: linear-gradient(
+        270deg,
+        rgba(22, 13, 25, 1) 0%,
+        rgba(135, 81, 153, 1) 50%,
+        rgba(225, 135, 255, 1) 100%
+      );
+    }
+  </style>
+{% endblock style %}
+
+{% block content %}
+<section class="bg_radial_2_op vh-100 pt-4">
+  <div class="container-sm p-2">
+    <h1>Edit Profile</h1>
+    <form method="post">
+      {% csrf_token %}
+      {% if form.errors %}
+        <div class="alert alert-warning alert-dismissible fade show text-danger pt-0 pb-0 ps-5">
+          {% for field in form %}
+            {{ field.errors }}
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% for field in form %}
+        <div class="mb-3">
+          {{ field.label }}
+          {{ field }}
+        </div>
+      {% endfor %}
+      <div class="text-center pt-1 mb-5 pb-1">
+        <button type="submit" class="btn btn-secondary btn-block fa-lg gradient-custom-2 mb-3">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock content %}
