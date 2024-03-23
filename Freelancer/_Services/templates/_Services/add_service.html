@@ -26,7 +26,7 @@
 <section class="bg_radial_2_op vh-100 pt-4">
   <div class="container-sm p-2">
     <h1>Add Service</h1>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
       {% csrf_token %} {{ form.as_p }}
       <button type="submit">Submit</button>
     </form>

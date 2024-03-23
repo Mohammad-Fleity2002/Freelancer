@@ -27,20 +27,12 @@ class Service(models.Model):
     service_desc = models.CharField(max_length=150)
     service_location = models.ForeignKey(areas, on_delete=models.CASCADE)
     service_date = models.DateField()
+    images=models.ImageField(null=True, blank=True, upload_to="images/")
     deleted = models.BooleanField(default=False)
+
 
     def __str__(self):
         return f"{self.freelancer.username}'s {self.service_type.type_title}"
-
-
-class service_photos(models.Model):
-    photo_id = models.AutoField(primary_key=True)
-    url_link = models.URLField()
-    service = models.ForeignKey('Service', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"Photo {self.photo_id} for Service {self.service}"
-
 
 class RateFeedback(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)

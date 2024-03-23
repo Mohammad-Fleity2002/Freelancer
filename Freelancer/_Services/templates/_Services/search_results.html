@@ -56,11 +56,13 @@
       <div class="row">
         {% for service in services %}
         <div class="card m-1 col-3" style="width: 18rem">
+         {%if service.images%}
           <img
-            src='{% static "images/avatar.png" %}'
+            src="{{service.images.url}}"
             class="card-img-top"
             alt="No Service Photo"
           />
+          {%endif%}
           <div class="card-body">
             <h5 class="card-title">{{service.service_title}}</h5>
             <p class="card-text">{{service.service_desc}}</p>

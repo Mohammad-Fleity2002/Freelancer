@@ -25,7 +25,7 @@ def search_service(request):
 
 def add_service(request):
     if request.method == 'POST':
-        form = AddServiceForm(request.POST)
+        form = AddServiceForm(request.POST, request.FILES)
         if form.is_valid():
             service = form.save(commit=False)
             service.freelancer = request.user

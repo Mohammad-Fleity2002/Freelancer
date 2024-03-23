@@ -13,4 +13,5 @@ class AddServiceForm(forms.ModelForm):
     class Meta:
         model = Service
         fields = ['service_title', 'service_desc',
-                  'service_type', 'service_location']
+                  'service_type', 'service_location', 'images']
+
