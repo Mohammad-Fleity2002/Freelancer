@@ -57,10 +57,8 @@ def login_user(request):
 @never_cache
 def logout_user(request):
     logout(request)
-    messages.success(request, "Logged Out Successfully")
-    # Construct the logout URL with a cache busting query parameter
-    cache_busting_param = quote(datetime.now().isoformat())
-    return redirect(f"{reverse('login')}?cache_bust={cache_busting_param}")
+    messages.success(request, ("You were logged out!"))
+    return redirect('/')
 
 
 @never_cache

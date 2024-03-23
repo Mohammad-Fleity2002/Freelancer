@@ -2,56 +2,84 @@
 <title>Search service</title>
 {% endblock title %} {% block style %}
 <style>
-    .bg_radial_2 {
-        background: rgb(22, 13, 25);
-        background: linear-gradient(90deg, rgba(22, 13, 25, 1) 0%, rgba(135, 81, 153, 1) 50%, rgba(225, 135, 255, 1) 100%);
-    }
+  .bg_radial_2 {
+    background: rgb(22, 13, 25);
+    background: linear-gradient(
+      90deg,
+      rgba(22, 13, 25, 1) 0%,
+      rgba(135, 81, 153, 1) 50%,
+      rgba(225, 135, 255, 1) 100%
+    );
+  }
 
-    .text_radial_2 {
-        color: rgb(22, 13, 25);
-        color: linear-gradient(90deg, rgba(22, 13, 25, 1) 0%, rgba(135, 81, 153, 1) 50%, rgba(225, 135, 255, 1) 100%);
-    }
+  .text_radial_2 {
+    color: rgb(22, 13, 25);
+    color: linear-gradient(
+      90deg,
+      rgba(22, 13, 25, 1) 0%,
+      rgba(135, 81, 153, 1) 50%,
+      rgba(225, 135, 255, 1) 100%
+    );
+  }
 </style>
 {% endblock style %} {% block content %}
 <body class="bg_radial_2">
-    <section class="container ">
-        <form action="#" method="get">
-            <div class="container-md ">
-                <div class="row text-center vh-100  align-item-center justify-content-center">
-                    <div class="container-md align-self-center">
-                        <div class="row align-item-center justify-content-center mb-2 pb-5">
-                            <div class="col-10 text-white m-0 p-0 text-align-center">
-                                <p class="h4 p-0 m-0">Welcome to <span class="h2 m-0 p-0 text_radial_2"><b>Freelancer</b></span></p>
-                                <p class="p-0 m-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa officiis aliquam quod nemo architecto sint magni nulla! Quas debitis cupiditate maxime at deserunt dolore nemo asperiores? Doloribus voluptatibus facere rem.</p>
-                            </div>
-                        </div>
-                        <div class="row align-item-center justify-content-center mt-2 mb-4">
-                            <div class="col-5 align-self-center">
-                                <select name="service_type" class="form-select" id="type">
-                                    <option value="" selected>Select Type</option>
-                                    {% for service_type in service_types %}
-                                        <option value="{{ service_type.code_type }}">{{ service_type.type_title }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-5 align-self-center">
-                                <select name="area" class="form-select" id="area">
-                                    <option value="" selected>Select area</option>
-                                    {% for area in areas %}
-                                        <option value="{{ area }}">{{ area }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-1 align-self-center">
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-gold px-3">search</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <section class="container">
+    <form action="{% url '_Services:search_service' %}" method="get">
+      <div class="container-md">
+        <div
+          class="row text-center vh-100 align-item-center justify-content-center"
+        >
+          <div class="container-md align-self-center">
+            <div class="row align-item-center justify-content-center mb-2 pb-5">
+              <div class="col-10 text-white m-0 p-0 text-align-center">
+                <p class="h4 p-0 m-0">
+                  Welcome to
+                  <span class="h2 m-0 p-0 text_radial_2"
+                    ><b>Freelancer</b></span
+                  >
+                </p>
+                <p class="p-0 m-0">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
+                  officiis aliquam quod nemo architecto sint magni nulla! Quas
+                  debitis cupiditate maxime at deserunt dolore nemo asperiores?
+                  Doloribus voluptatibus facere rem.
+                </p>
+              </div>
             </div>
-        </form>
-    </section>
+            <div class="row align-item-center justify-content-center mt-2 mb-4">
+              <div class="col-5 align-self-center">
+                <select name="service_type" class="form-select" id="type">
+                  <option value="" selected>Select Type</option>
+                  {% for service_type in service_types %}
+                  <option value="{{ service_type.code_type }}">
+                    {{ service_type.type_title }}
+                  </option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-5 align-self-center">
+                <select name="area" class="form-select" id="area">
+                  <option value="" selected>Select area</option>
+                  {% for area in areas %}
+                  <option value="{{ area.code_area }}">
+                    {{ area.area_name }}
+                  </option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-1 align-self-center">
+                <div class="text-center">
+                  <button type="submit" class="btn btn-gold px-3">
+                    search
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
 </body>
 {% endblock content %}
