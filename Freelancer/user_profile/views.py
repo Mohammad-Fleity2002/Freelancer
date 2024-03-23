@@ -20,7 +20,7 @@ def edit_profile(request):
             user.last_name = form.cleaned_data['last_name']
             # Add other fields as needed
             user.save()
-            return redirect('/user_profile/view_profile')
+            return redirect('/user_profile/')
     else:
         form = EditProfileForm(initial={
             'username': user.username,
