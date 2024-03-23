@@ -1,6 +1,5 @@
-{% extends "base.html" %} {% load static %} {% block title %}
-<title>Search result</title>
-{% endblock title %} {% block style %}
+{% load static %} {% include "base.html" %} {% block title %}
+<title>My Services</title>{% endblock title %} {% block style %}
 <style>
   .service_img {
     width: 400px;
@@ -30,29 +29,11 @@
 {% endblock style %} {% block content %}
 <body class="bg_radial_2">
   <section class="container">
-    <form method="post" action="{% url '_Services:search_service' %}">
-      {% csrf_token %}
-      <div class="container-md">
-        <div class="row text-center align-item-center justify-content-center">
-          <div class="container-md align-self-center">
-            <div class="row align-item-center justify-content-center mt-2 mb-4">
-              {% for field in form %}
-              <div class="col-5 align-self-center">{{field}}</div>
-              {% endfor %}
-              <div class="col-1 align-self-center">
-                <div class="text-center">
-                  <button type="submit" class="btn btn-gold px-3">
-                    Search
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
     <div class="container-lg">
-      <h1 class="h1 text-white">Search Results</h1>
+      <h1 class="h1 text-white">My Service</h1>
+      <a class="btn btn-light" href="{% url '_Services:add_service' %}">
+        Add Service</a
+      >
       <div class="row">
         {% for service in services %}
         <div class="card m-1 col-3" style="width: 18rem">

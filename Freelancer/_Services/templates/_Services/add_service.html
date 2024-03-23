@@ -1,0 +1,142 @@
+{% include "base.html" %} {% block title %}
+<title>Add Service</title>
+{% endblock title %} {% block style %}
+<style>
+  .bg_radial_2 {
+    background: rgb(22, 13, 25);
+    background: linear-gradient(
+      90deg,
+      rgba(22, 13, 25, 1) 0%,
+      rgba(135, 81, 153, 1) 50%,
+      rgba(225, 135, 255, 1) 100%
+    );
+  }
+
+  .bg_radial_2_op {
+    background: rgb(22, 13, 25);
+    background: linear-gradient(
+      270deg,
+      rgba(22, 13, 25, 1) 0%,
+      rgba(135, 81, 153, 1) 50%,
+      rgba(225, 135, 255, 1) 100%
+    );
+  }
+</style>
+{% endblock style %} {% block content %}
+<section class="bg_radial_2_op vh-100 pt-4">
+  <div class="container-sm p-2">
+    <h1>Add Service</h1>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Submit</button>
+    </form>
+    {% comment %}
+    <form
+      class="container-md border border-2 border-gold pt-1"
+      method="post"
+      action=""
+    >
+      <table>
+        <tr>
+          <th><label for="area" class="form-label">area</label></th>
+          <td class="container-sm">
+            <select name="service_area" class="form-select" id="area"></select>
+          </td>
+        </tr>
+        <tr>
+          <th><label for="type" class="form-label">Type</label></th>
+          <td class="container-sm">
+            <select name="type" class="form-select" id="type"></select>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label for="service_title" class="form-label">Title</label>
+          </th>
+          <td class="container-sm">
+            <div class="m-0 input-group">
+              <input
+                type="text"
+                name="service_title"
+                id="service_title"
+                class="m-0 form-control"
+                placeholder="   "
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="mb-4 input-group container-sm">
+              <span class="input-group-text">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-geo-alt"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"
+                  />
+                  <path
+                    d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+                  />
+                </svg>
+              </span>
+              <input
+                type="text"
+                id="service_location"
+                name="service_location"
+                class="form-control"
+                placeholder="e.g.: coogle/maps/link/location"
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="form-floating mb-4">
+              <textarea
+                class="form-control"
+                id="service_description"
+                name="service_description"
+                style="height: 140px"
+              ></textarea>
+              <label for="service_description" class="form-label"
+                >Service Description:</label
+              >
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <p class="form-label">Photo</p>
+          </th>
+          <td>
+            <div class="m-0 input-group">
+              <label
+                for="uploadfile"
+                class="btn bg-white form-control text-center"
+                ><b>Choose a photo that describe your service</b></label
+              >
+              <input
+                class="form-control d-none"
+                id="uploadfile"
+                type="file"
+                name="uploadfile"
+                value=""
+              />
+            </div>
+          </td>
+        </tr>
+      </table>
+      <div class="mb-4 text-center">
+        <button type="submit" class="btn btn-gold">Submit</button>
+      </div>
+    </form>
+    {% endcomment %}
+  </div>
+</section>
+{% endblock content %}

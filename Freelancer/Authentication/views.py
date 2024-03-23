@@ -76,6 +76,7 @@ def signup(request):
     return render(request, 'Authentication/Signup.html', {'form': form})
 # pass@123 Ali user@gmail.com
 # test@123 Mohammad mohammadfleity2002@gmial.com
+# test@123 Freelancer mourice@gmail.com
 
 
 @never_cache

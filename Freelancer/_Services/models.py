@@ -21,13 +21,13 @@ class areas(models.Model):
 
 class Service(models.Model):
     service_id = models.IntegerField(primary_key=True)
+    service_title = models.CharField(max_length=100, unique=True)
     freelancer = models.ForeignKey(User, on_delete=models.CASCADE)
     service_type = models.ForeignKey(service_type, on_delete=models.CASCADE)
     service_desc = models.CharField(max_length=150)
     service_location = models.ForeignKey(areas, on_delete=models.CASCADE)
     service_date = models.DateField()
     deleted = models.BooleanField(default=False)
-   
 
     def __str__(self):
         return f"{self.freelancer.username}'s {self.service_type.type_title}"
@@ -51,10 +51,8 @@ class RateFeedback(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
-
 class Report(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     report_desc = models.CharField(max_length=120)
     report_date_date = models.DateField()
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-   
