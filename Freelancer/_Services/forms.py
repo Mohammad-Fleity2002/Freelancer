@@ -4,9 +4,11 @@ from .models import service_type, areas, Service, RateFeedback
 
 class SearchForm(forms.Form):
     service_type = forms.ModelChoiceField(queryset=service_type.objects.all(
-    ), widget=forms.Select(attrs={'class': 'form-control'}))
+    ), widget=forms.Select(attrs={'class': 'form-control'}), label="Service type")
     area = forms.ModelChoiceField(queryset=areas.objects.all(
-    ), widget=forms.Select(attrs={'class': 'form-control'}))
+    ), widget=forms.Select(attrs={'class': 'form-control'}), label="Area")
+    
+        
 
 
 class AddServiceForm(forms.ModelForm):
@@ -19,8 +21,10 @@ class AddServiceForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['service_title'].widget.attrs['class'] = 'form-control border border-dark border-1'
         self.fields['service_title'].label = 'Service Title'
+        self.fields['service_title'].widget.attrs['placeholder'] = 'Enter your service title'
         self.fields['service_desc'].widget.attrs['class'] = 'form-control border border-dark border-1'
         self.fields['service_desc'].label = 'Service Description'
+        self.fields['service_desc'].widget.attrs['placeholder'] = 'Enter your service description'
         self.fields['service_type'].widget.attrs['class'] = 'form-control border border-dark border-1'
         self.fields['service_location'].widget.attrs['class'] = 'form-control border border-dark border-1'
         self.fields['images'].widget.attrs['class'] = 'form-control border border-dark border-1'
@@ -36,5 +40,7 @@ class AddFeedbackForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['rate'].widget.attrs['class'] = 'form-control border border-dark border-1'
         self.fields['rate'].label = 'Rate'
+        self.fields['rate'].widget.attrs['placeholder'] = 'Enter your rating on 5'
         self.fields['feedback_content'].widget.attrs['class'] = 'form-control border border-dark border-1'
         self.fields['feedback_content'].label = 'Your feedback'
+        self.fields['feedback_content'].widget.attrs['placeholder'] = 'Enter your feedback'

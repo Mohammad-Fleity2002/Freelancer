@@ -66,17 +66,20 @@
                         <img  src='{% static "images/avatar.png" %}' alt="Admin" class="rounded-circle" width="150">
                         <div class="mt-3">
                             <h4>{{ user.username }}</h4>
-                            <p class="text-secondary mb-1">{{ user.group }}</p>
-                            
-                            {% if user.group == "freelancer" %}
+                            {% for group in user.groups.all %}
+                            <p class="text-secondary mb-1">{{ group.name }}</p>
+                            {%endfor%}
+                            {% for group in user.groups.all %}
+                            {% if group.name == 'Freelancers' %}
                             <div class="container text-center">
                                 <button class="btn-primary btn">
-                                    <a href="my_services.php" class="text-white" style="text-decoration: none;">
+                                    <a href="{% url '_Services:my_services' %}" class="text-white" style="text-decoration: none;">
                                         My Services
                                     </a>
                                 </button>
                             </div>
                             {% endif %}
+                            {%endfor%}
                         </div>
                     </div>
                 </div>
@@ -96,7 +99,7 @@
                             <div class="col-sm-3">
                                 <h6 class="mb-0">First Name:</h6>
                             </div>
-                            <div class="col-sm-9 text-secondary">
+                            <div class="col-sm-9 text-secondary ">
                                 {{ user.first_name }}
                             </div>
                             <div class="row">
@@ -111,14 +114,16 @@
                                         <h6 class="mb-0">Role:</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        {{ user.group }}
+                                        {% for group in user.groups.all %}
+                                        {{group.name}}
+                                        {%endfor%}
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-3">
                                         
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                           <a href="{% url 'user_profile:edit_profile' %}"  style="color: #393f81">edit profile</a>
+                                           <a href="{% url 'user_profile:edit_profile' %}"  class="btn btn-primary m-3">edit profile</a>
                                         </div>
                     </div>
                     </div>
