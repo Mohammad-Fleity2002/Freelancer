@@ -19,11 +19,10 @@ def search_service(request):
         areas = Areas.objects.all()
         return render(request, '_Services/search_service.html', {'service_types': service_types, 'areas': areas, 'form': form})
 
-# def search_results(request):
-#     pass
-
 
 def add_service(request):
+    if not request.user.groups.filter(name='Freelancers').exists():
+        return redirect('/')
     if request.method == 'POST':
         form = AddServiceForm(request.POST, request.FILES)
         if form.is_valid():
@@ -38,9 +37,47 @@ def add_service(request):
 
 
 def my_services(request):
+    if not request.user.groups.filter(name='Freelancers').exists():
+        return redirect('/')
     user_services = Service.objects.filter(freelancer=request.user)
     return render(request, '_Services/my_service.html', {'services': user_services})
 
 
 def service_details(request):
+    if not request.user.groups.filter(name='Freelancers').exists():
+        return redirect('/')
     return render(request, '_Services/service_detail.html')
+
+
+def edit_service(request, service_id):
+    if not request.user.groups.filter(name='Freelancers').exists():
+        return redirect('/')
+    try:
+        service = Service.objects.get(service_id=service_id)
+        if service.freelancer != request.user:
+            return redirect('/')
+        if request.method == 'POST':
+            form = AddServiceForm(
+                request.POST, request.FILES, instance=service)
+            if form.is_valid():
+                form.save()
+                return redirect('/search/my_services')
+        else:
+            form = AddServiceForm(instance=service)
+        return render(request, '_Services/edit_service.html', {'form': form})
+    except Service.DoesNotExist:
+        return redirect('/')
+
+
+def delete_service(request, service_id):
+    if not request.user.groups.filter(name='Freelancers').exists():
+        return redirect('/')
+    service = get_object_or_404(Service, service_id=service_id)
+    if service.freelancer != request.user:
+        return redirect('/')
+    if request.method == 'POST':
+        if service.images:
+            service.images.delete()
+        service.delete()
+        return redirect('/search/my_services')
+    return render(request, '_Services/delete_service_confirm.html', {'service': service})

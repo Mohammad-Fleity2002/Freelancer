@@ -1,5 +1,5 @@
-{% include "base.html" %} {% block title %}
-<title>Add Service</title>
+{% extends "base.html" %} {% block title %}
+<title>Delete service</title>
 {% endblock title %} {% block style %}
 <style>
   .bg_radial_2 {
@@ -25,10 +25,15 @@
 {% endblock style %} {% block content %}
 <section class="bg_radial_2_op vh-100 pt-4">
   <div class="container-sm p-2">
-    <h1>Add Service</h1>
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %} {{ form.as_p }}
-      <button type="submit">Submit</button>
+    <h1>Confirm Deletion</h1>
+    <h4 class="text-white h4">
+      Are you sure you want to delete the service "<span class="bg-danger"
+        >{{ service.service_title }}</span
+      >"?
+    </h4>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Delete</button>
     </form>
   </div>
 </section>
