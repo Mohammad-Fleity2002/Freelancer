@@ -1,35 +1,18 @@
 {% include "base.html" %} {% block title %}
 <title>Add Service</title>
-{% endblock title %} {% block style %}
-<style>
-  .bg_radial_2 {
-    background: rgb(22, 13, 25);
-    background: linear-gradient(
-      90deg,
-      rgba(22, 13, 25, 1) 0%,
-      rgba(135, 81, 153, 1) 50%,
-      rgba(225, 135, 255, 1) 100%
-    );
-  }
-
-  .bg_radial_2_op {
-    background: rgb(22, 13, 25);
-    background: linear-gradient(
-      270deg,
-      rgba(22, 13, 25, 1) 0%,
-      rgba(135, 81, 153, 1) 50%,
-      rgba(225, 135, 255, 1) 100%
-    );
-  }
-</style>
-{% endblock style %} {% block content %}
+{% endblock title %} {% block content %}
 <section class="bg_radial_2_op vh-100 pt-4">
   <div class="container-sm p-2">
     <h1>Add Service</h1>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %} {{ form.as_p }}
-      <button type="submit">Submit</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+  </div>
+  <div class="row justify-content-center">
+    <a href="#" onclick="history.back()" class="btn btn-light col-2 fs-6"
+      ><b>Go Back</b></a
+    >
   </div>
 </section>
 {% endblock content %}

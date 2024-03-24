@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
-from .forms import SearchForm, AddServiceForm
-from .models import service_type, Service
+from .forms import SearchForm, AddServiceForm, AddFeedbackForm
+from .models import service_type, Service, RateFeedback
 from .models import areas as Areas
+from django.contrib import messages
 
 
 def search_service(request):
@@ -81,3 +82,33 @@ def delete_service(request, service_id):
         service.delete()
         return redirect('/search/my_services')
     return render(request, '_Services/delete_service_confirm.html', {'service': service})
+
+
+def add_feedback(request, service_id):
+    service = get_object_or_404(Service, service_id=service_id)
+
+    if request.method == 'POST':
+        form = AddFeedbackForm(request.POST)
+        if form.is_valid():
+            rate = form.cleaned_data['rate']
+            feedback_content = form.cleaned_data['feedback_content']
+            feedback_date = timezone.now()
+
+            RateFeedback.objects.create(
+                service=service,
+                rate=rate,
+                feedback_content=feedback_content,
+                feedback_date=feedback_date,
+                user_id=request.user
+            )
+            messages.success(request, 'Feedback added successfully.')
+            return redirect('/')
+    else:
+        form = AddFeedbackForm()
+    return render(request, '_Services/add_feedback.html', {'form': form, 'service': service})
+
+
+def service_feedbacks(request, service_id):
+    service = get_object_or_404(Service, service_id=service_id)
+    feedbacks = RateFeedback.objects.filter(service=service)
+    return render(request, '_Services/feedbacks.html', {'service': service, 'feedbacks': feedbacks})

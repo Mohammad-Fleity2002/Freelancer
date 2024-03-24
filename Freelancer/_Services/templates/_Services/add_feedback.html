@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block title %}<title>Add Feedback</title>
+{%endblock title %} {% block content %}
+<section class="bg_radial_2_op vh-100 pt-4">
+  <div class="container-sm p-2">
+    <div class="container">
+      <h1 class="h1 text-white">
+        Add Feedback for {{ service.service_title }}
+      </h1>
+      <form method="post">
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit Feedback</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock content %}

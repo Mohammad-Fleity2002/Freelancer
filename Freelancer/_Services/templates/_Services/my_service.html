@@ -1,32 +1,5 @@
 {% load static %} {% include "base.html" %} {% block title %}
-<title>My Services</title>{% endblock title %} {% block style %}
-<style>
-  .service_img {
-    width: 400px;
-    height: 300px;
-  }
-
-  .bg_radial_2 {
-    background: rgb(22, 13, 25);
-    background: linear-gradient(
-      90deg,
-      rgba(22, 13, 25, 1) 0%,
-      rgba(135, 81, 153, 1) 50%,
-      rgba(225, 135, 255, 1) 100%
-    );
-  }
-
-  .text_radial_2 {
-    color: rgb(22, 13, 25);
-    color: linear-gradient(
-      90deg,
-      rgba(22, 13, 25, 1) 0%,
-      rgba(135, 81, 153, 1) 50%,
-      rgba(225, 135, 255, 1) 100%
-    );
-  }
-</style>
-{% endblock style %} {% block content %}
+<title>My Services</title>{% endblock title %} {% block content %}
 <body class="bg_radial_2">
   <section class="container">
     <div class="container-lg">
@@ -56,7 +29,11 @@
             <li class="list-group-item">{{service.freelancer.email}}</li>
           </ul>
           <div class="card-body text-center">
-            <a href="#" class="btn btn-primary my-1">Feedbacks</a>
+            <a
+              href="{% url '_Services:service_feedbacks' service_id=service.service_id %}"
+              class="btn btn-primary"
+              >Feedbacks</a
+            >
             <a
               href="{% url '_Services:edit_service' service_id=service.service_id %}"
               class="btn btn-primary my-1"
@@ -71,6 +48,11 @@
         </div>
         {% endfor %}
       </div>
+    </div>
+    <div class="row justify-content-center">
+      <a href="#" onclick="history.back()" class="btn btn-light col-2 fs-6"
+        ><b>Go Back</b></a
+      >
     </div>
   </section>
 </body>

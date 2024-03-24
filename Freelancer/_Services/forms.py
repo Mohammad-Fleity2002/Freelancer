@@ -1,5 +1,5 @@
 from django import forms
-from .models import service_type, areas, Service
+from .models import service_type, areas, Service, RateFeedback
 
 
 class SearchForm(forms.Form):
@@ -14,6 +14,7 @@ class AddServiceForm(forms.ModelForm):
         model = Service
         fields = ['service_title', 'service_desc',
                   'service_type', 'service_location', 'images']
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['service_title'].widget.attrs['class'] = 'form-control border border-dark border-1'
@@ -24,3 +25,16 @@ class AddServiceForm(forms.ModelForm):
         self.fields['service_location'].widget.attrs['class'] = 'form-control border border-dark border-1'
         self.fields['images'].widget.attrs['class'] = 'form-control border border-dark border-1'
         self.fields['images'].label = 'Service Images'
+
+
+class AddFeedbackForm(forms.ModelForm):
+    class Meta:
+        model = RateFeedback
+        fields = ['rate', "feedback_content"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['rate'].widget.attrs['class'] = 'form-control border border-dark border-1'
+        self.fields['rate'].label = 'Rate'
+        self.fields['feedback_content'].widget.attrs['class'] = 'form-control border border-dark border-1'
+        self.fields['feedback_content'].label = 'Your feedback'

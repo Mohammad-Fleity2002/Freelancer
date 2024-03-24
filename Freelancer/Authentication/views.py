@@ -35,25 +35,6 @@ def login_user(request):
     return render(request, "Authentication/Login.html", {"form": MyForm})
 
 
-# @never_cache
-# def logout_user(request):
-#     logout(request)
-#     messages.success(request, "Logged Out Successfully")
-
-#     # Create a response object
-#     response = HttpResponse()
-
-#     # Set headers to prevent caching
-#     response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-#     response['Pragma'] = 'no-cache'
-#     response['Expires'] = '0'
-
-#     # Redirect the user to the login page
-#     response['Location'] = '/login/'
-#     response.status_code = 302
-
-#     return response
-
 @never_cache
 def logout_user(request):
     logout(request)

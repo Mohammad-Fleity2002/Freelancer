@@ -32,8 +32,7 @@
     </div>
     {%endif%}
     <div class="row d-flex justify-content-center align-items-center">
-      <div class="col-xl-4 col-lg-6 col-md-8">
-        <!-- Adjusted column widths for responsiveness -->
+      <div class="col-8">
         <div class="card rounded-3 text-black px-2">
           <div class="row">
             <div class="card-body p-1 m-1">
@@ -41,7 +40,6 @@
               <form action="{% url 'Authentication:signup' %}" method="POST">
                 {% csrf_token %}
                 <div class="mb-3">
-                  <!-- Reduced margin between form fields -->
                   {% for field in form %}
                   <label class="form-label">{{field.label}}</label>
                   {{field}} {% endfor %}

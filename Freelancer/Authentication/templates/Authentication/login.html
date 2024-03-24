@@ -1,19 +1,6 @@
 {% extends "base.html" %} {% block title %} {% load static %}
 <title>Login</title>
-{% endblock title %} {% block style %}
-<style>
-  .bg_radial_2 {
-    background: rgb(22, 13, 25);
-    background: linear-gradient(
-      90deg,
-      rgba(22, 13, 25, 1) 0%,
-      rgba(135, 81, 153, 1) 30%,
-      rgba(225, 135, 255, 1) 100%
-    );
-  }
-</style>
-
-{% endblock style %} {% block content %}
+{% endblock title %} {% block content %}
 <section class="vh-100 bg_radial_2">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -36,7 +23,7 @@
                   <div class="pt-1 mb-4">
                     <button
                       type="submit"
-                      class="btn bg-gold fw-bold text-black px-3"
+                      class="btn bg-primary text-white px-3"
                     >
                       Login
                     </button>
