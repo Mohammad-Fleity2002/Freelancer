@@ -2,6 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+RATING_CHOICES = [
+    ('1','1 ⭐'),
+    ('2','2 ⭐⭐'),
+    ('3','3 ⭐⭐⭐'),
+    ('4','4 ⭐⭐⭐⭐'),
+    ('5','5 ⭐⭐⭐⭐⭐'),
+]
 
 class service_type(models.Model):
     code_type = models.CharField(primary_key=True, max_length=20)
@@ -36,8 +43,7 @@ class Service(models.Model):
 
 class RateFeedback(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
-    rate = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(5)])
+    rate = models.CharField(max_length=2, choices=RATING_CHOICES, default='0')
     feedback_content = models.CharField(max_length=120)
     feedback_date = models.DateField()
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
