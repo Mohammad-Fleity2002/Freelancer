@@ -12,9 +12,11 @@
           <div class="col">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">{{ feedback.user_id }}</h5>
-                <p class="card-text">{{ feedback.feedback_content }}</p>
-                <p class="card-text"><strong>Rate:</strong>{{feedback.get_rate_display|slice:"2:" }} </p>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">{{ feedback.user_id }}</li>
+                  <li class="list-group-item">{{ feedback.feedback_content }}</li>
+                  <li class="list-group-item"><strong>Rate:</strong>{{feedback.get_rate_display|slice:"2:" }} </li>
+                </ul>
               </div>
             </div>
           </div>
