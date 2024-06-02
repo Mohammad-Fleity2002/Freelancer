@@ -26,9 +26,9 @@ handler404 = views.handler404
 handler500 = views.handler500
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', include('Authentication.urls')),
+    path('auth/', include('Authentication.urls')),
     path('search/', include('_Services.urls')),
-    path('user_profile/',include('user_profile.urls')),
+    path('user_profile/', include('user_profile.urls')),
     path('', views.home, name='home')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,35 @@
+<div>
+  <div *ngIf="errors.message" class="error">
+    <span *ngFor="let error of errors.message">{{ error }}</span>
+  </div>
+  <h2>Login</h2>
+  <form (submit)="login()">
+    <div>
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        [(ngModel)]="username"
+        name="username"
+        required
+      />
+      <div *ngIf="errors.username" class="error">
+        <span *ngFor="let error of errors.username">{{ error }}</span>
+      </div>
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        [(ngModel)]="password"
+        name="password"
+        required
+      />
+      <div *ngIf="errors.password" class="error">
+        <span *ngFor="let error of errors.password">{{ error }}</span>
+      </div>
+    </div>
+    <button type="submit">Login</button>
+  </form>
+</div>
