@@ -1,0 +1,12 @@
+<div *ngIf="feedbacks.length > 0 && selectedServiceId">
+  <h2>Feedbacks for Service ID: {{ selectedServiceId }}</h2>
+  <ul>
+    <li *ngFor="let feedback of feedbacks">
+      <div>
+        <p>User: {{ feedback.user_id }}</p>
+        <p>Comment: {{ feedback.feedback_content }}</p>
+        <p>Rating: {{ feedback.rate }}</p>
+      </div>
+    </li>
+  </ul>
+</div>

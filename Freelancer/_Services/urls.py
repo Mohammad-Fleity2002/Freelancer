@@ -1,9 +1,15 @@
 from django.urls import path
-from . import views
+from . import views, api_views
 
 app_name = '_Services'
 
 urlpatterns = [
+    path('add-service-form/', api_views.AddServiceFormView.as_view(),
+         name='add_service_form'),
+    path('search-service/', api_views.search_service,
+         name='search_service'),
+    path('feedbacks/<int:service_id>/',
+         api_views.get_feedbacks, name='get_feedbacks'),
     path('', views.search_service, name='search_service'),
     path('add_service', views.add_service, name='add_service'),
     path('my_services', views.my_services, name='my_services'),

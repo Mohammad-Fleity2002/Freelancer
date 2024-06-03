@@ -1,0 +1,80 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <h2>Add Service</h2>
+  <form
+    [formGroup]="addServiceForm"
+    (ngSubmit)="onSubmit()"
+    enctype="multipart/form-data"
+  >
+    <div class="form-group">
+      <label for="service_title">Service Title</label>
+      <input
+        id="service_title"
+        formControlName="service_title"
+        class="form-control"
+        placeholder="Enter your service title"
+      />
+      <div *ngIf="errors.service_title" class="text-danger">
+        {{ errors.service_title[0] }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="service_desc">Service Description</label>
+      <textarea
+        id="service_desc"
+        formControlName="service_desc"
+        class="form-control"
+        placeholder="Enter your service description"
+      ></textarea>
+      <div *ngIf="errors.service_desc" class="text-danger">
+        {{ errors.service_desc[0] }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="service_type">Service Type</label>
+      <select
+        id="service_type"
+        formControlName="service_type"
+        class="form-control"
+      >
+        <option *ngFor="let choice of serviceTypeChoices" [value]="choice.code">
+          {{ choice.title }}
+        </option>
+      </select>
+      <div *ngIf="errors.service_type" class="text-danger">
+        {{ errors.service_type[0] }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="service_location">Service Location</label>
+      <select
+        id="service_location"
+        formControlName="service_location"
+        class="form-control"
+      >
+        <option
+          *ngFor="let choice of serviceLocationChoices"
+          [value]="choice.code"
+        >
+          {{ choice.name }}
+        </option>
+      </select>
+      <div *ngIf="errors.service_location" class="text-danger">
+        {{ errors.service_location[0] }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="images">Service Images</label>
+      <input
+        type="file"
+        id="images"
+        (change)="onFileChange($event)"
+        class="form-control"
+      />
+      <div *ngIf="errors.images" class="text-danger">
+        {{ errors.images[0] }}
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Service</button>
+  </form>
+</div>

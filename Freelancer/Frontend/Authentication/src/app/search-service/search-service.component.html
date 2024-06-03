@@ -1,0 +1,52 @@
+<!-- src/app/search/search.component.html -->
+<app-navbar></app-navbar>
+<div class="container">
+  <h1 class="h1 text-white">Search for a Service</h1>
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="service_type">Service Type</label>
+      <select
+        formControlName="service_type"
+        class="form-control"
+        id="service_type"
+      >
+        <option *ngFor="let type of serviceTypes" [value]="type.code_type">
+          {{ type.type_title }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="area">Area</label>
+      <select formControlName="area" class="form-control" id="area">
+        <option *ngFor="let area of areas" [value]="area.code_area">
+          {{ area.area_name }}
+        </option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-light mx-0">Search</button>
+  </form>
+  <div *ngIf="services.length > 0">
+    <h2>Search Results</h2>
+    <ul>
+      <li *ngFor="let service of services">
+        <h3>{{ service.service_title }}</h3>
+        <p><strong>Freelancer:</strong> {{ service.freelancer_name }}</p>
+        <p><strong>Description:</strong> {{ service.service_desc }}</p>
+        <p><strong>Type:</strong> {{ service.service_type }}</p>
+        <p><strong>Location:</strong> {{ service.service_location }}</p>
+        <p><strong>Date Added:</strong> {{ service.service_date }}</p>
+        <div *ngIf="service.service_image">
+          <img
+            [src]="service.service_image"
+            alt="{{ service.service_title }}"
+            width="100"
+            height="100"
+          />
+        </div>
+        <button (click)="viewFeedbacks(service.service_id)">
+          View Feedbacks
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>

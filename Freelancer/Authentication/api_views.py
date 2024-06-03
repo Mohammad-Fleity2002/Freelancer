@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from django.middleware.csrf import get_token
 from django.http import JsonResponse
 from .forms import SignupForm
+from django.contrib.auth.decorators import login_required
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -53,40 +54,6 @@ class SignupFormView(APIView):
 
         return Response(response_data, status=status.HTTP_200_OK)
 
-    # def post(self, request, *args, **kwargs):
-    #     form_serializer = SignupFormSerializer(data=request.data)
-    #     print(form_serializer)
-    #     if form_serializer.is_valid():
-    #         data = form_serializer.validated_data
-    #         username = data['username']
-    #         password1 = data['password1']
-    #         password2 = data['password2']
-    #         email = data['email']
-    #         first_name = data['first_name']
-    #         last_name = data['last_name']
-    #         group_id = data['group']
-
-    #         # Validate passwords match
-    #         if password1 != password2:
-    #             return Response({'password': 'Passwords do not match'}, status=status.HTTP_400_BAD_REQUEST)
-
-    #         # Create the user
-    #         user = User(
-    #             username=username,
-    #             email=email,
-    #             first_name=first_name,
-    #             last_name=last_name
-    #         )
-    #         user.set_password(password1)
-    #         user.save()
-
-    #         # Assign the user to the group
-    #         group = Group.objects.get(id=group_id)
-    #         user.groups.add(group)
-
-    #         return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
-    #     else:
-    #         return Response(form_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     def post(self, request, *args, **kwargs):
         form_serializer = SignupFormSerializer(data=request.data['data'])
         # print(form_serializer)
@@ -145,3 +112,14 @@ def ChangePasswordView(request):
             return Response({'username': ['Invalid credentials']}, status=status.HTTP_401_UNAUTHORIZED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@login_required
+def user_info(request):
+    user = request.user
+    is_freelancer = user.groups.filter(name='Freelancers').exists()
+    data = {
+        'username': user.username,
+        'is_freelancer': is_freelancer
+    }
+    return JsonResponse(data)
