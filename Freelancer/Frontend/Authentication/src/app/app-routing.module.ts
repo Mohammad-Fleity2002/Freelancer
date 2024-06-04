@@ -21,10 +21,10 @@ const routes: Routes = [
   { path: 'my-services', component: MyServicesComponent },
   { path: 'search-service', component: SearchServiceComponent },
   { path: 'service-details/:id', component: ServiceDetailsComponent },
-  { path: 'edit-service/:id', component: EditServiceComponent },
+  { path: 'edit-service', component: EditServiceComponent },
   { path: 'delete-service/:id', component: DeleteServiceComponent },
   { path: 'feedbacks', component: FeedbackComponent },
-  { path: 'add-feedback/:id', component: AddFeedbackComponent },
+  { path: 'add-feedback', component: AddFeedbackComponent },
   // other routes can be added here
 ];
 

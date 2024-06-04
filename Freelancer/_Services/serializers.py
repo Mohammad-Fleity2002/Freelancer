@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import service_type, areas, Service
+from .models import service_type, areas, Service, RateFeedback
 from django.contrib.auth.models import User
 
 
@@ -28,3 +28,19 @@ class AddServiceFormSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         service = Service.objects.create(**validated_data)
         return service
+
+
+class addFeedbackSerializer(serializers.Serializer):
+
+    feedback_content = serializers.CharField(required=True)
+    rate = serializers.CharField(required=True)
+    service_id = serializers.IntegerField()
+
+    def is_valid(self, raise_exception=False):
+        is_valid = super().is_valid(raise_exception=raise_exception)
+
+        return is_valid
+
+    def create(self, validated_data):
+        feedback = RateFeedback.objects.create(**validated_data)
+        return feedback

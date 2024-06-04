@@ -1,12 +1,26 @@
-<div *ngIf="feedbacks.length > 0 && selectedServiceId">
-  <h2>Feedbacks for Service ID: {{ selectedServiceId }}</h2>
-  <ul>
-    <li *ngFor="let feedback of feedbacks">
-      <div>
-        <p>User: {{ feedback.user_id }}</p>
-        <p>Comment: {{ feedback.feedback_content }}</p>
-        <p>Rating: {{ feedback.rate }}</p>
-      </div>
-    </li>
-  </ul>
+<app-navbar></app-navbar>
+<div class="min-h-screen bg-gradient-to-r from-purple-600 to-pink-500">
+  <div class="w-full rounded-lg overflow-hidden">
+    <div class="w-full text-center">
+      <button (click)="add_feedback()" class="btn btn-primary">
+        Add Feedback
+      </button>
+    </div>
+    <div *ngIf="feedbacks.length > 0">
+      <ul class="w-full items-center">
+        <li
+          *ngFor="let feedback of feedbacks"
+          class="flex max-w-md items-center"
+        >
+          <div
+            class="container bg-white text-black max-w-md border p-1 m-2 shadow-xl"
+          >
+            <p>User: {{ feedback.user }}</p>
+            <p>Comment: {{ feedback.comment }}</p>
+            <p>Rating: {{ feedback.rating }}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

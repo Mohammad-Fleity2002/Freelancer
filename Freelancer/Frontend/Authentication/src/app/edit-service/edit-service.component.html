@@ -1,1 +1,81 @@
-<p>edit-service works!</p>
+<app-navbar></app-navbar>
+<div *ngIf="services">
+  <p><strong>Freelancer:</strong> {{ services.freelancer_name }}</p>
+  <p><strong>Date Added:</strong> {{ services.service_date }}</p>
+</div>
+<form [formGroup]="editServiceForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="service_title">Service Title</label>
+    <input
+      id="service_title"
+      formControlName="service_title"
+      class="form-control"
+      placeholder="{{ services.service_title }}"
+    />
+    <div *ngIf="errors.service_title" class="text-danger">
+      {{ errors.service_title[0] }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="service_desc">Service Description</label>
+    <textarea
+      id="service_desc"
+      formControlName="service_desc"
+      class="form-control"
+      placeholder="{{ services.service_desc }}"
+    ></textarea>
+    <div *ngIf="errors.service_desc" class="text-danger">
+      {{ errors.service_desc[0] }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="service_type"
+      >old Type: <b>{{ services.service_type }}</b></label
+    >
+    <select
+      formControlName="service_type"
+      class="form-control"
+      id="service_type"
+    >
+      <option *ngFor="let type of serviceTypes" [value]="type.code_type">
+        {{ type.type_title }}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="area"
+      >Areas: old Area:<b>{{ services.service_location }}</b>
+    </label>
+    <select formControlName="area" class="form-control" id="area">
+      <option *ngFor="let area of areas" [value]="area.code_area">
+        {{ area.area_name }}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <div *ngIf="services.service_image">
+      <p>
+        <b> Old Image: </b>
+        <img
+          [src]="services.service_image"
+          alt="{{ services.service_title }}"
+          width="100"
+          class="inline"
+          height="100"
+        />
+      </p>
+    </div>
+
+    <label for="images">Service Images</label>
+    <input
+      type="file"
+      id="images"
+      (change)="onFileChange($event)"
+      class="form-control"
+    />
+    <div *ngIf="errors.images" class="text-danger">
+      {{ errors.images[0] }}
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Add Service</button>
+</form>

@@ -15,12 +15,8 @@ class SignupFormSerializer(serializers.Serializer):
     last_name = serializers.CharField()
 
     def is_valid(self, raise_exception=False):
-        # Call the original `is_valid` method
         is_valid = super().is_valid(raise_exception=raise_exception)
-        # print(super().errors)
-        # Add custom validation logic
         if is_valid:
-            # Check if passwords match
             if self.initial_data.get('password1') != self.initial_data.get('password2'):
                 self._errors['password'] = ['Passwords do not match']
                 if raise_exception:
@@ -37,7 +33,6 @@ class SignupFormSerializer(serializers.Serializer):
         return is_valid
 
     def create(self, validated_data):
-        # Extract the validated data
         username = validated_data['username']
         email = validated_data['email']
         first_name = validated_data['first_name']
@@ -45,7 +40,6 @@ class SignupFormSerializer(serializers.Serializer):
         password = validated_data['password1']
         group_id = validated_data['group']
 
-        # Create the user
         user = User.objects.create(
             username=username,
             email=email,
@@ -55,7 +49,6 @@ class SignupFormSerializer(serializers.Serializer):
         user.set_password(password)
         user.save()
 
-        # Assign the user to the group
         group = Group.objects.get(id=group_id)
         user.groups.add(group)
 

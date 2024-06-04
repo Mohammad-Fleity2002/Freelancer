@@ -119,6 +119,7 @@ def user_info(request):
     user = request.user
     is_freelancer = user.groups.filter(name='Freelancers').exists()
     data = {
+        'userid': user.id,
         'username': user.username,
         'is_freelancer': is_freelancer
     }

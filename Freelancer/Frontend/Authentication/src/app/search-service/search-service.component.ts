@@ -43,10 +43,6 @@ export class SearchServiceComponent implements OnInit {
   }
   viewFeedbacks(serviceId: number): void {
     this.selectedServiceId = serviceId;
-    this.feedbackService.getFeedbacks(serviceId).subscribe(response => {
-      this.feedbacks = response.feedbacks;
-      // Navigate to the feedbacks route and pass feedbacks data as query parameters
-      this.router.navigate(['/feedbacks'], { queryParams: { feedbacks: JSON.stringify(this.feedbacks) } });
-    });
+    this.router.navigate(['/feedbacks'], { queryParams: { selectedId: serviceId } });
   }
 }

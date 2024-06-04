@@ -25,16 +25,8 @@ export class AuthService {
   logout(): Observable<any> {
     return this.http.post(`${this.apiUrl}/logout/`, {});
   }
-  getUsername(): string {
-    // Logic to get the username, e.g., from local storage or an API
-    return 'JohnDoe';
-  }
   getUserInfo(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/user-info/`);
-  }
-  isFreelancer(): boolean {
-    // Logic to check if the user is a freelancer, e.g., from local storage or an API
-    return true; // Set true/false based on actual check
   }
   getCsrfToken(): Observable<any> {
     return this.http.get(`${this.apiUrl}/get-csrf-token/`, { withCredentials: true });

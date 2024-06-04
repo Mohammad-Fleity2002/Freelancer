@@ -5,16 +5,16 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ServiceService {
-  private apiUrl = 'http://localhost:8000/search/add-service-form/';
+export class AddFeedbackService {
+  private apiUrl = 'http://localhost:8000/search/add-feedback/';
 
   constructor(private http: HttpClient) {}
 
-  getAddServiceFormData(): Observable<any> {
+  getAddFeedbackFormData(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
   }
 
-  submitAddServiceForm(data: FormData): Observable<any> {
+  submitAddFeedbackForm(data: FormData): Observable<any> {
     return this.http.post<any>(this.apiUrl, data);
   }
 }

@@ -34,14 +34,14 @@
           >
         </li>
         <li class="nav-item" *ngIf="isFreelancer">
-          <a routerLink="/my-services" class="h4 py-0 my-0 fw-bold nav-link"
-            >My Services</a
-          >
+          <button (click)="toMyService()" class="h4 py-0 my-0 fw-bold nav-link">
+            My Services
+          </button>
         </li>
         <li class="nav-item">
-          <a routerLink="/logout" class="h4 py-0 my-0 fw-bold nav-link"
-            >Log Out</a
-          >
+          <button (click)="logout()" class="h4 py-0 my-0 fw-bold nav-link">
+            Log Out
+          </button>
         </li>
       </ul>
     </div>

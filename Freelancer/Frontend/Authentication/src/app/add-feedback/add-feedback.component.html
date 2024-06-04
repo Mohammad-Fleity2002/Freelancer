@@ -1,1 +1,41 @@
-<p>add-feedback works!</p>
+<app-navbar></app-navbar>
+<div class="container">
+  <h2>Add Feedback</h2>
+  <form
+    [formGroup]="addFeedbackForm"
+    (ngSubmit)="onSubmit()"
+    enctype="multipart/form-data"
+  >
+    <div class="form-group">
+      <label for="feedback_content">Feedback Content</label>
+      <textarea
+        id="feedback_content"
+        formControlName="feedback_content"
+        class="form-control"
+        placeholder="Enter your feedback content"
+      ></textarea>
+      <div *ngIf="errors.feedback_content" class="text-danger">
+        {{ errors.feedback_content[0] }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="rate">Rate</label>
+      <input
+        id="rate"
+        formControlName="rate"
+        class="form-control"
+        type="number"
+        [max]="5"
+        [min]="0"
+        placeholder="Enter your rating"
+      />
+      <div *ngIf="errors.rate" class="text-danger">
+        {{ errors.rate[0] }}
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="hidden" formControlName="service_id" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add Feedback</button>
+  </form>
+</div>
