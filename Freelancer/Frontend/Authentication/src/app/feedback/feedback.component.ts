@@ -12,6 +12,7 @@ export class FeedbackComponent implements OnInit {
   feedbacks: any[] = [];
   selectedServiceId: number | null = null;
   serviceId!:number ;
+  serviceTitle!:string;
 
   constructor(private route: ActivatedRoute,private feedbackService: FeedbackService,private router:Router) { }
 
@@ -19,10 +20,19 @@ export class FeedbackComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params['selectedId']) { 
         this.serviceId = params['selectedId'];
+        this.loadServiceTitle(this.serviceId);
         this.feedbackService.getFeedbacks(this.serviceId).subscribe(response => {
           this.feedbacks = response.feedbacks;
         });
       }
+    });
+  }
+  loadServiceTitle(serviceId: number): void {
+    // Assume getServiceTitle returns an observable that fetches the service title by ID
+    this.feedbackService.getServiceTitle(serviceId).subscribe(response => {
+      this.serviceTitle = response.title;
+    }, error => {
+      console.error('Error loading service title', error);
     });
   }
   add_feedback():void{

@@ -30,10 +30,18 @@ export class MyServicesComponent implements OnInit {
     this.selectedServiceId = serviceId;
     this.router.navigate(['/feedbacks'], { queryParams: { selectedId: serviceId } });
   }
+  addService(userId: number): void {
+    this.router.navigate(['/add-service'], { queryParams: { selectedId: userId } });
+  }
 
   editService(serviceId: number): void {
     this.selectedServiceId = serviceId;
-    this.router.navigate(['/edit-service'], { queryParams: { selectedId: serviceId } });
+    // this.router.navigate(['/edit-service'], { queryParams: [{ selectedId: serviceId},{userid:this.username}] });
+    this.router.navigate(['/edit-service'], { 
+      queryParams: {
+        selectedId: serviceId, 
+        userid: this.username 
+      }
+    }); 
   }
-
 }

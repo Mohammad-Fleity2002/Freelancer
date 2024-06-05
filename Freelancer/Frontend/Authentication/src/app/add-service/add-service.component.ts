@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ServiceService } from '../services/service.service';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-service',
@@ -9,12 +9,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-service.component.scss']
 })
 export class AddServiceComponent implements OnInit {
+  userid!:number;
   addServiceForm: FormGroup;
   serviceTypeChoices: any[];
   serviceLocationChoices: any[];
   errors: any = {};
+  // userId!=number;
 
-  constructor(private fb: FormBuilder, private serviceService: ServiceService, private router: Router) {
+  constructor(private fb: FormBuilder, private serviceService: ServiceService, private router: Router,private route:ActivatedRoute) {
     this.addServiceForm = this.fb.group({
       service_title: ['', Validators.required],
       service_desc: ['', Validators.required],
@@ -28,6 +30,11 @@ export class AddServiceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      if (params['selectedId']) { 
+        this.userid=params['selectedId'];
+      }
+    });
     this.serviceService.getAddServiceFormData().subscribe(response => {
       const formData = response.initial_data;
       this.serviceTypeChoices = response.choices.service_type;
@@ -66,7 +73,8 @@ export class AddServiceComponent implements OnInit {
       this.serviceService.submitAddServiceForm(formData).subscribe(response => {
         console.log('Service added successfully', response);
         this.errors = {};
-        this.router.navigate(['/my-services']);
+        // this.router.navigate(['/my-services']);
+        this.router.navigate(['/my-services'], { queryParams: { username: this.userid } });
       }, error => {
         console.error('Error adding service', error);
         this.errors = error.error;

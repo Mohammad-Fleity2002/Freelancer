@@ -1,0 +1,8 @@
+<app-navbar></app-navbar>
+<div *ngIf="userData">
+  <h2>{{ userData.username }}</h2>
+  <p><strong>First Name:</strong> {{ userData.first_name }}</p>
+  <p><strong>Last Name:</strong> {{ userData.last_name }}</p>
+  <p><strong>Email:</strong> {{ userData.email }}</p>
+</div>
+<button (click)="editProfile()" class="btn btn-primary">Edit Profile</button>

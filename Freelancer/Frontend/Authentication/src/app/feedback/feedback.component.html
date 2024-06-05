@@ -1,26 +1,47 @@
 <app-navbar></app-navbar>
-<div class="min-h-screen bg-gradient-to-r from-purple-600 to-pink-500">
-  <div class="w-full rounded-lg overflow-hidden">
-    <div class="w-full text-center">
-      <button (click)="add_feedback()" class="btn btn-primary">
-        Add Feedback
-      </button>
+
+<div class="min-h-screen bg-gradient-to-r from-purple-600 to-pink-500 p-4">
+  <div class="container mx-auto my-8">
+    <div *ngIf="serviceTitle">
+      <h1 class="text-4xl font-bold text-white mb-8">Feedbacks for {{ serviceTitle }}</h1>
     </div>
-    <div *ngIf="feedbacks.length > 0">
-      <ul class="w-full items-center">
-        <li
-          *ngFor="let feedback of feedbacks"
-          class="flex max-w-md items-center"
-        >
-          <div
-            class="container bg-white text-black max-w-md border p-1 m-2 shadow-xl"
+    <div class="bg-white p-6 rounded shadow-lg max-w-3xl mx-auto">
+      <div *ngIf="feedbacks.length > 0">
+        <ul class="space-y-4">
+          <li
+            *ngFor="let feedback of feedbacks"
+            class="bg-gray-100 p-4 rounded shadow"
           >
-            <p>User: {{ feedback.user }}</p>
-            <p>Comment: {{ feedback.comment }}</p>
-            <p>Rating: {{ feedback.rating }}</p>
-          </div>
-        </li>
-      </ul>
+            <p class="text-lg font-semibold">{{ feedback.user }}</p>
+
+            <p class="my-2">{{ feedback.comment }}</p>
+
+            <p class="text-yellow-500">
+              Rate:
+
+              <span *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+                <i
+                  class="fa"
+                  [ngClass]="{
+                    'fa-star': (feedback.rating | ratingToInt) > i,
+                    'fa-star-o': (feedback.rating | ratingToInt) <= i
+                  }"
+                ></i>
+              </span>
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="feedbacks.length === 0" class="text-center">
+        <p class="text-lg text-white">No feedbacks yet.</p>
+      </div>
+
+      <!-- <div class="flex justify-center mt-6">
+
+        <button (click)="goBack()" class="btn btn-light">Go Back</button>
+
+      </div> -->
     </div>
   </div>
 </div>

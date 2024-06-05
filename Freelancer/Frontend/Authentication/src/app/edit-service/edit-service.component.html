@@ -1,81 +1,123 @@
 <app-navbar></app-navbar>
-<div *ngIf="services">
-  <p><strong>Freelancer:</strong> {{ services.freelancer_name }}</p>
-  <p><strong>Date Added:</strong> {{ services.service_date }}</p>
-</div>
-<form [formGroup]="editServiceForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="service_title">Service Title</label>
-    <input
-      id="service_title"
-      formControlName="service_title"
-      class="form-control"
-      placeholder="{{ services.service_title }}"
-    />
-    <div *ngIf="errors.service_title" class="text-danger">
-      {{ errors.service_title[0] }}
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="service_desc">Service Description</label>
-    <textarea
-      id="service_desc"
-      formControlName="service_desc"
-      class="form-control"
-      placeholder="{{ services.service_desc }}"
-    ></textarea>
-    <div *ngIf="errors.service_desc" class="text-danger">
-      {{ errors.service_desc[0] }}
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="service_type"
-      >old Type: <b>{{ services.service_type }}</b></label
-    >
-    <select
-      formControlName="service_type"
-      class="form-control"
-      id="service_type"
-    >
-      <option *ngFor="let type of serviceTypes" [value]="type.code_type">
-        {{ type.type_title }}
-      </option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="area"
-      >Areas: old Area:<b>{{ services.service_location }}</b>
-    </label>
-    <select formControlName="area" class="form-control" id="area">
-      <option *ngFor="let area of areas" [value]="area.code_area">
-        {{ area.area_name }}
-      </option>
-    </select>
-  </div>
-  <div class="form-group">
-    <div *ngIf="services.service_image">
-      <p>
-        <b> Old Image: </b>
-        <img
-          [src]="services.service_image"
-          alt="{{ services.service_title }}"
-          width="100"
-          class="inline"
-          height="100"
-        />
-      </p>
+
+<div class="min-h-screen bg-gradient-to-r from-purple-600 to-pink-500 p-8">
+  <div class="container mx-auto max-w-3xl bg-white rounded-lg shadow-lg p-8">
+    <h1 class="text-4xl font-bold text-gray-800 mb-8">Edit Service</h1>
+
+    <div *ngIf="services">
+      <p><strong>Freelancer:</strong> {{ services.freelancer_name }}</p>
+
+      <p><strong>Date Added:</strong> {{ services.service_date }}</p>
     </div>
 
-    <label for="images">Service Images</label>
-    <input
-      type="file"
-      id="images"
-      (change)="onFileChange($event)"
-      class="form-control"
-    />
-    <div *ngIf="errors.images" class="text-danger">
-      {{ errors.images[0] }}
-    </div>
+    <form [formGroup]="editServiceForm" (ngSubmit)="onSubmit()">
+      <div class="form-group mb-6">
+        <label for="service_title" class="block text-gray-700 mb-2"
+          >Service Title</label
+        >
+
+        <input
+          id="service_title"
+          formControlName="service_title"
+          class="w-full p-2 border border-gray-300 rounded-lg"
+          [placeholder]="services.service_title"
+        />
+
+        <div *ngIf="errors.service_title" class="text-red-500 mt-1">
+          {{ errors.service_title[0] }}
+        </div>
+      </div>
+
+      <div class="form-group mb-6">
+        <label for="service_desc" class="block text-gray-700 mb-2"
+          >Service Description</label
+        >
+
+        <textarea
+          id="service_desc"
+          formControlName="service_desc"
+          class="w-full p-2 border border-gray-300 rounded-lg"
+          [placeholder]="services.service_desc"
+        ></textarea>
+
+        <div *ngIf="errors.service_desc" class="text-red-500 mt-1">
+          {{ errors.service_desc[0] }}
+        </div>
+      </div>
+
+      <div class="form-group mb-6">
+        <label for="service_type" class="block text-gray-700 mb-2"
+          >Old Type: <b>{{ services.service_type }}</b></label
+        >
+
+        <select
+          id="service_type"
+          formControlName="service_type"
+          class="w-full p-2 border border-gray-300 rounded-lg"
+        >
+          <option *ngFor="let type of serviceTypes" [value]="type.type_title">
+            {{ type.type_title }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group mb-6">
+        <label for="area" class="block text-gray-700 mb-2"
+          >Areas: Old Area: <b>{{ services.service_location }}</b></label
+        >
+
+        <select
+          id="area"
+          formControlName="service_location"
+          class="w-full p-2 border border-gray-300 rounded-lg"
+        >
+          <option *ngFor="let area of areas" [value]="area.area_name">
+            {{ area.area_name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group mb-6">
+        <div *ngIf="services.service_image" class="mb-4">
+          <p><b>Old Image:</b></p>
+
+          <img
+            [src]="services.service_image"
+            alt="{{ services.service_title }}"
+            class="inline-block w-24 h-24 rounded-lg border"
+          />
+        </div>
+
+        <label for="images" class="block text-gray-700 mb-2"
+          >Service Images</label
+        >
+
+        <input
+          type="file"
+          id="images"
+          (change)="onFileChange($event)"
+          class="w-full p-2 border border-gray-300 rounded-lg"
+        />
+
+        <div *ngIf="errors.images" class="text-red-500 mt-1">
+          {{ errors.images[0] }}
+        </div>
+      </div>
+
+      <div class="flex justify-between">
+        <button
+          type="submit"
+          class="bg-blue-500 text-white px-4 py-2 rounded-lg"
+        >
+          Update Service
+        </button>
+        <button
+          class="bg-red-500 text-white px-4 py-2 rounded-lg"
+          (click)="onDelete()"
+        >
+          Delete Service
+        </button>
+      </div>
+    </form>
   </div>
-  <button type="submit" class="btn btn-primary">Add Service</button>
-</form>
+</div>

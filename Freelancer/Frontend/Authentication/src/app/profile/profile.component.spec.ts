@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeleteServiceComponent } from './delete-service.component';
+import { ProfileComponent } from './profile.component';
 
-describe('DeleteServiceComponent', () => {
-  let component: DeleteServiceComponent;
-  let fixture: ComponentFixture<DeleteServiceComponent>;
+describe('ProfileComponent', () => {
+  let component: ProfileComponent;
+  let fixture: ComponentFixture<ProfileComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DeleteServiceComponent]
+      declarations: [ProfileComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(DeleteServiceComponent);
+    fixture = TestBed.createComponent(ProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

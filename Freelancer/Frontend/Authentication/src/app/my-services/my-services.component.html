@@ -1,36 +1,65 @@
 <app-navbar></app-navbar>
-<div *ngIf="services">
-  <h2>Search Results</h2>
-  <ul>
-    <li *ngFor="let service of services">
-      <h3>{{ service.service_title }}</h3>
-      <p><strong>Freelancer:</strong> {{ service.freelancer_name }}</p>
-      <p><strong>Description:</strong> {{ service.service_desc }}</p>
-      <p><strong>Type:</strong> {{ service.service_type }}</p>
-      <p><strong>Location:</strong> {{ service.service_location }}</p>
-      <p><strong>Date Added:</strong> {{ service.service_date }}</p>
+
+<div class="container mx-auto my-4">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="text-3xl font-bold text-white">My Service</h1>
+
+    <button (click)="addService(username)" class="btn btn-secondary">
+      Add Service
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div
+      *ngFor="let service of services"
+      class="bg-white p-4 rounded shadow-lg"
+    >
+      <h3 class="text-xl font-bold">{{ service.service_title }}</h3>
+
+      <p>{{ service.service_desc }}</p>
+
+      <p class="text-sm">
+        <strong>Freelancer:</strong> {{ service.freelancer_name }}
+      </p>
+
+      <p class="text-sm">
+        <strong>Location:</strong> {{ service.service_location }}
+      </p>
+
+      <p class="text-sm">
+        <strong>Email:</strong> {{ service.freelancer_email }}
+      </p>
+
       <div *ngIf="service.service_image">
         <img
           [src]="service.service_image"
           alt="{{ service.service_title }}"
-          width="100"
-          height="100"
+          class="my-2 w-full h-48 object-cover rounded"
         />
       </div>
-      <div>
+
+      <div class="flex justify-between mt-4">
         <button
           (click)="viewFeedbacks(service.service_id)"
-          class="btn btn-secondary m-1"
+          class="btn btn-primary"
         >
-          View Feedbacks
+          Feedbacks
         </button>
+
         <button
           (click)="editService(service.service_id)"
-          class="btn btn-secondary m-1"
+          class="btn btn-primary"
         >
-          Edit service
+          Edit Service
         </button>
       </div>
-    </li>
-  </ul>
+    </div>
+  </div>
+
+  <!-- <div class="flex justify-center mt-4">
+
+    <button (click)="goBack()" class="btn btn-light">Go Back</button>
+
+  </div>
+ -->
 </div>

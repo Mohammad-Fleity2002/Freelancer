@@ -19,6 +19,9 @@ import { DeleteServiceComponent } from './delete-service/delete-service.componen
 import { AddFeedbackComponent } from './add-feedback/add-feedback.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { ProfileComponent } from './profile/profile.component';
+import { RatingToIntPipe } from './pipes/rating-to-int.pipe';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { FeedbackComponent } from './feedback/feedback.component';
     DeleteServiceComponent,
     AddFeedbackComponent,
     NavbarComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    ProfileComponent,
+    RatingToIntPipe,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

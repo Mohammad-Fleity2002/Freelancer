@@ -1,3 +1,6 @@
+from django.http import JsonResponse
+from django.contrib.auth.models import User
+from django.views.decorators.http import require_http_methods
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -13,6 +16,10 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.http import JsonResponse
+from django.http import JsonResponse
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
 
 
 class AddServiceFormView(APIView):
@@ -51,7 +58,7 @@ class AddServiceFormView(APIView):
         if form_serializer.is_valid():
             # print(form_serializer.errors)
             type = service_type.objects.get(code_type=data['service_type'])
-            area = areas.objects.get(code_area=data['service_location'])
+            area = Area.objects.get(code_area=data['service_location'])
             # freelancer = User.objects.get(username='Ali')
             freelancer = request.user
             service = Service(service_title=data['service_title'], service_type=type,
@@ -150,40 +157,129 @@ class AddFeedbackFormView(APIView):
             return Response(form_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@csrf_exempt
+@api_view(['GET', 'POST'])
 def edit_service(request, service_id):
     if request.method == 'GET':
-        service = Service.objects.get(service_id=service_id)
-        services_data = {'service_id': service.service_id,
-                         'freelancer_name': service.freelancer.username,
-                         'service_title': service.service_title,
-                         'service_desc': service.service_desc,
-                         'service_image': request.build_absolute_uri(service.images.url) if service.images else None,
-                         'service_location': service.service_location.area_name,
-                         'service_type': service.service_type.type_title,
-                         'service_date': service.service_date,
-                         'service_types': [{'code_type': st.code_type, 'type_title': st.type_title} for st in service_type.objects.all()],
-                         'areas': [{'code_area': area.code_area, 'area_name': area.area_name} for area in Area.objects.all()]
-                         }
+        try:
+            service = Service.objects.get(service_id=service_id)
+        except Service.DoesNotExist:
+            return JsonResponse({'error': 'Service not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        services_data = {
+            'service_id': service.service_id,
+            'freelancer_name': service.freelancer.username,
+            'service_title': service.service_title,
+            'service_desc': service.service_desc,
+            'service_image': request.build_absolute_uri(service.images.url) if service.images else None,
+            'service_location': service.service_location.area_name,
+            'service_type': service.service_type.type_title,
+            'service_date': service.service_date,
+            'service_types': [{'code_type': st.code_type, 'type_title': st.type_title} for st in service_type.objects.all()],
+            'areas': [{'code_area': area.code_area, 'area_name': area.area_name} for area in Area.objects.all()]
+        }
         return JsonResponse({'service': services_data})
+
     elif request.method == 'POST':
-        service_title = request.POST.get('service_title')
-        service_desc = request.POST.get('service_desc')
-        service_type = request.POST.get('service_type')
-        service_location = request.POST.get('service_location')
-        images = request.FILES.get('images')
-        print(service_type)
         service = Service.objects.get(service_id=service_id)
-        print(service_location)
-        type = service_type.objects.get(type_title=service_type)
-        area = Area.objects.get(area_name=service_location)
-        if service.service_type != type:
-            service.service_type = type
-        if service.service_type != area:
-            service.service_location = area
-        service.service_desc = service_desc
+
+        service_title = request.POST.get(
+            'service_title', service.service_title)
+        service_desc = request.POST.get('service_desc', service.service_desc)
+        service_type_title = request.POST.get(
+            'service_type', service.service_type.type_title)
+        service_location_name = request.POST.get(
+            'service_location', service.service_location.area_name)
+        images = request.FILES.get('images', service.images)
+
+        try:
+            service_type_instance = service_type.objects.get(
+                type_title=service_type_title)
+        except service_type.DoesNotExist:
+            return JsonResponse({'error': 'Invalid service type'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            service_location_instance = Area.objects.get(
+                area_name=service_location_name)
+        except Area.DoesNotExist:
+            return JsonResponse({'error': 'Invalid service location'}, status=status.HTTP_400_BAD_REQUEST)
+
         service.service_title = service_title
+        service.service_desc = service_desc
+        service.service_type = service_type_instance
+        service.service_location = service_location_instance
         service.images = images
-        print(service)
-        # service.save()
-        return Response({'message': 'Service added successfully'}, status=status.HTTP_201_CREATED)
+        service.save()
+
+        return Response({'message': 'Service updated successfully'}, status=status.HTTP_200_OK)
+
+
+@require_http_methods(["GET"])
+def user_info(request):
+    user_id = request.GET.get('user_id')
+    if not user_id:
+        return JsonResponse({'error': 'User ID not provided'}, status=400)
+
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)
+
+    user_data = {
+        'username': user.username,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'email': user.email,
+    }
+    return JsonResponse(user_data)
+
+
+@api_view(['DELETE'])
+def delete_service(request, service_id):
+    try:
+        service = Service.objects.get(service_id=service_id)
+        service.delete()
+        return Response({'message': 'Service deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+    except Service.DoesNotExist:
+        return Response({'error': 'Service not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['GET'])
+def get_service_title(request, service_id):
+    try:
+        service = Service.objects.get(service_id=service_id)
+        return Response({'title': service.service_title}, status=status.HTTP_200_OK)
+    except Service.DoesNotExist:
+        return Response({'error': 'Service not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['GET'])
+def get_user_profile(request):
+    user_id = request.query_params.get('user_id')
+    try:
+        user = User.objects.get(id=user_id)
+        user_data = {
+            'username': user.username,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'email': user.email
+        }
+        return Response({'user': user_data}, status=status.HTTP_200_OK)
+    except User.DoesNotExist:
+        return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['PUT'])
+def update_user_profile(request):
+    user_id = request.query_params.get('user_id')
+    data = request.data
+    print(data)
+    try:
+        user = User.objects.get(id=user_id)
+        user.username = data.get('username', user.username)
+        user.first_name = data.get('first_name', user.first_name)
+        user.last_name = data.get('last_name', user.last_name)
+        user.email = data.get('email', user.email)
+        user.save()
+        return Response({'message': 'Profile updated successfully'}, status=status.HTTP_200_OK)
+    except User.DoesNotExist:
+        return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)

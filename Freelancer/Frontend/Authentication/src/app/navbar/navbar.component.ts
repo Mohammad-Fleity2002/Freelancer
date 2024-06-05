@@ -23,6 +23,9 @@ export class NavbarComponent implements OnInit {
   toMyService():void{
     this.router.navigate(['/my-services'], { queryParams: { username: this.userid } });
   }
+  toProfile():void{
+    this.router.navigate(['/profile'], { queryParams: { user_id: this.userid } });
+  }
   logout():void{
     this.authService.logout().subscribe(response => {
       console.log('User lougged out successfully', response);

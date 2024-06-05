@@ -1,52 +1,85 @@
-<!-- src/app/search/search.component.html -->
 <app-navbar></app-navbar>
-<div class="container">
-  <h1 class="h1 text-white">Search for a Service</h1>
-  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="service_type">Service Type</label>
-      <select
-        formControlName="service_type"
-        class="form-control"
-        id="service_type"
-      >
-        <option *ngFor="let type of serviceTypes" [value]="type.code_type">
-          {{ type.type_title }}
-        </option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="area">Area</label>
-      <select formControlName="area" class="form-control" id="area">
-        <option *ngFor="let area of areas" [value]="area.code_area">
-          {{ area.area_name }}
-        </option>
-      </select>
-    </div>
-    <button type="submit" class="btn btn-light mx-0">Search</button>
-  </form>
-  <div *ngIf="services.length > 0">
-    <h2>Search Results</h2>
-    <ul>
-      <li *ngFor="let service of services">
-        <h3>{{ service.service_title }}</h3>
-        <p><strong>Freelancer:</strong> {{ service.freelancer_name }}</p>
-        <p><strong>Description:</strong> {{ service.service_desc }}</p>
-        <p><strong>Type:</strong> {{ service.service_type }}</p>
-        <p><strong>Location:</strong> {{ service.service_location }}</p>
-        <p><strong>Date Added:</strong> {{ service.service_date }}</p>
-        <div *ngIf="service.service_image">
-          <img
-            [src]="service.service_image"
-            alt="{{ service.service_title }}"
-            width="100"
-            height="100"
-          />
+<div
+  class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-900 via-purple-700 to-purple-500"
+>
+  <div class="w-full max-w-4xl p-6">
+    <form
+      [formGroup]="searchForm"
+      (ngSubmit)="onSubmit()"
+      class="flex space-x-4 mb-6"
+    >
+      <div class="flex-grow">
+        <label for="area">Area</label>
+        <select
+          formControlName="area"
+          class="form-control"
+          id="area"
+          class="input input-bordered w-full select"
+        >
+          <option *ngFor="let area of areas" [value]="area.code_area">
+            {{ area.area_name }}
+          </option>
+        </select>
+      </div>
+      <div class="flex-grow">
+        <label for="service_type">Service Type</label>
+        <select
+          formControlName="service_type"
+          class="form-control"
+          id="service_type"
+          class="input input-bordered w-full select"
+        >
+          <option *ngFor="let type of serviceTypes" [value]="type.code_type">
+            {{ type.type_title }}
+          </option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-light mt-5">Search</button>
+    </form>
+    <div *ngIf="services.length > 0">
+      <h2 class="text-3xl text-white mb-4">Search Results</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div
+          *ngFor="let service of services"
+          class="card bg-white shadow-lg rounded-lg p-4"
+        >
+          <div *ngIf="service.service_image" class="mb-4">
+            <img
+              [src]="service.service_image"
+              alt="{{ service.service_title }}"
+              class="w-full h-48 object-cover rounded-lg"
+            />
+          </div>
+          <div class="card-body">
+            <h3 class="text-xl font-bold">{{ service.service_title }}</h3>
+            <p class="text-gray-700">{{ service.service_desc }}</p>
+            <ul class="list-disc list-inside text-gray-600">
+              <li><strong>Location:</strong> {{ service.service_location }}</li>
+              <li>
+                <strong>Freelancer:</strong> {{ service.freelancer_name }}
+              </li>
+              <li><strong>Email:</strong> {{ service.freelancer_email }}</li>
+            </ul>
+            <div class="flex space-x-2 mt-4">
+              <button
+                (click)="viewFeedbacks(service.service_id)"
+                class="btn btn-primary"
+              >
+                Feedbacks
+              </button>
+              <!-- <button
+                (click)="addFeedback(service.service_id)"
+                class="btn btn-primary"
+              >
+                Add Feedback
+              </button> -->
+            </div>
+          </div>
         </div>
-        <button (click)="viewFeedbacks(service.service_id)">
-          View Feedbacks
-        </button>
-      </li>
-    </ul>
+      </div>
+    </div>
+    <!-- <div class="mt-6 text-center">
+      <button (click)="goBack()" class="btn btn-light">Go Back</button>
+    </div> -->
   </div>
 </div>
