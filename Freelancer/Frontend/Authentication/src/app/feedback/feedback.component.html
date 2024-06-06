@@ -2,8 +2,16 @@
 
 <div class="min-h-screen bg-gradient-to-r from-purple-600 to-pink-500 p-4">
   <div class="container mx-auto my-8">
-    <div *ngIf="serviceTitle">
-      <h1 class="text-4xl font-bold text-white mb-8">Feedbacks for {{ serviceTitle }}</h1>
+    <div *ngIf="serviceTitle" class="flex justify-between items-center mb-4">
+      <h1 class="text-3xl font-bold text-white mb-8">
+        Feedbacks for {{ serviceTitle }}
+      </h1>
+      <button
+        (click)="add_feedback()"
+        class="btn btn-outline bg-white text-black"
+      >
+        Add Feedback
+      </button>
     </div>
     <div class="bg-white p-6 rounded shadow-lg max-w-3xl mx-auto">
       <div *ngIf="feedbacks.length > 0">

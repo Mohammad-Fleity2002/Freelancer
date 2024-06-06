@@ -1,8 +1,42 @@
 <app-navbar></app-navbar>
-<div *ngIf="userData">
-  <h2>{{ userData.username }}</h2>
-  <p><strong>First Name:</strong> {{ userData.first_name }}</p>
-  <p><strong>Last Name:</strong> {{ userData.last_name }}</p>
-  <p><strong>Email:</strong> {{ userData.email }}</p>
+
+<div class="min-h-screen bg-gray-100 p-8">
+  <div class="container mx-auto flex justify-center items-center">
+    <div class="bg-white rounded-lg shadow-lg flex">
+      <div class="flex-shrink-0 p-8 bg-white rounded-lg shadow-md">
+        <img
+          src="../../assets/images/avatar.png"
+          alt="User Avatar"
+          class="w-32 h-32 rounded-full mx-auto"
+        />
+
+        <div class="text-center mt-4">
+          <h2 class="text-2xl font-bold">{{ userData.username }}</h2>
+        </div>
+      </div>
+
+      <!-- Right Column for User Details -->
+
+      <div class="p-8">
+        <div *ngIf="userData" class="space-y-4">
+          <p class="text-lg"><strong>Email:</strong> {{ userData.email }}</p>
+
+          <p class="text-lg">
+            <strong>First Name:</strong> {{ userData.first_name }}
+          </p>
+
+          <p class="text-lg">
+            <strong>Last Name:</strong> {{ userData.last_name }}
+          </p>
+
+          <button
+            (click)="editProfile()"
+            class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg"
+          >
+            Edit Profile
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<button (click)="editProfile()" class="btn btn-primary">Edit Profile</button>

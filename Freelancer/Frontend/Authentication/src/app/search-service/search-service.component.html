@@ -6,35 +6,41 @@
     <form
       [formGroup]="searchForm"
       (ngSubmit)="onSubmit()"
-      class="flex space-x-4 mb-6"
+      class="flex space-x-4 mb-6 p-1"
     >
       <div class="flex-grow">
-        <label for="area">Area</label>
+        <label for="area" class="text-white">Area</label>
         <select
           formControlName="area"
           class="form-control"
           id="area"
-          class="input input-bordered w-full select"
+          class="input input-bordered w-full select bg-white text-black"
         >
+          <option value="" disabled selected>Select an Area</option>
           <option *ngFor="let area of areas" [value]="area.code_area">
             {{ area.area_name }}
           </option>
         </select>
       </div>
       <div class="flex-grow">
-        <label for="service_type">Service Type</label>
+        <label for="service_type" class="text-white">Service Type</label>
         <select
           formControlName="service_type"
           class="form-control"
           id="service_type"
-          class="input input-bordered w-full select"
+          class="input input-bordered w-full select bg-white text-black"
         >
+          <option value="" disabled selected>Select a service type</option>
           <option *ngFor="let type of serviceTypes" [value]="type.code_type">
             {{ type.type_title }}
           </option>
         </select>
       </div>
-      <button type="submit" class="btn btn-light mt-5">Search</button>
+      <div class="flex-grow">
+        <button type="submit" class="btn btn-outline bg-white text-black mt-5">
+          Search
+        </button>
+      </div>
     </form>
     <div *ngIf="services.length > 0">
       <h2 class="text-3xl text-white mb-4">Search Results</h2>

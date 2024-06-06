@@ -104,20 +104,22 @@
         </div>
       </div>
 
-      <div class="flex justify-between">
+      <div class="flex justify-center">
         <button
           type="submit"
           class="bg-blue-500 text-white px-4 py-2 rounded-lg"
         >
           Update Service
         </button>
-        <button
-          class="bg-red-500 text-white px-4 py-2 rounded-lg"
-          (click)="onDelete()"
-        >
-          Delete Service
-        </button>
       </div>
     </form>
+    <div class="flex space-before justify-center mt-2">
+      <button
+        class="bg-red-500 text-white px-4 py-2 rounded-lg"
+        (click)="onDelete()"
+      >
+        Delete Service
+      </button>
+    </div>
   </div>
 </div>

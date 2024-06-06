@@ -1,54 +1,88 @@
 <app-navbar></app-navbar>
-<div *ngIf="user">
-  <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input
-        id="username"
-        formControlName="username"
-        class="form-control"
-        placeholder="{{ user.username }}"
-      />
-      <div *ngIf="errors.username" class="text-danger">
-        {{ errors.username[0] }}
-      </div>
+
+<div class="min-h-screen bg-gradient-to-r from-purple-600 to-pink-500 p-8">
+  <div class="container mx-auto max-w-3xl bg-white rounded-lg shadow-lg p-8">
+    <h2 class="text-4xl font-bold text-gray-800 mb-8">Edit Profile</h2>
+
+    <div *ngIf="user">
+      <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
+        <div class="form-group mb-6">
+          <label for="username" class="block text-gray-700 mb-2"
+            >Username</label
+          >
+
+          <input
+            id="username"
+            formControlName="username"
+            class="w-full p-2 border border-gray-300 rounded-lg"
+            placeholder="{{ user.username }}"
+          />
+
+          <div *ngIf="errors.username" class="text-red-500 mt-1">
+            {{ errors.username[0] }}
+          </div>
+        </div>
+
+        <div class="form-group mb-6">
+          <label for="first_name" class="block text-gray-700 mb-2"
+            >First Name</label
+          >
+
+          <input
+            id="first_name"
+            formControlName="first_name"
+            class="w-full p-2 border border-gray-300 rounded-lg"
+            placeholder="{{ user.first_name }}"
+          />
+
+          <div *ngIf="errors.first_name" class="text-red-500 mt-1">
+            {{ errors.first_name[0] }}
+          </div>
+        </div>
+
+        <div class="form-group mb-6">
+          <label for="last_name" class="block text-gray-700 mb-2"
+            >Last Name</label
+          >
+
+          <input
+            id="last_name"
+            formControlName="last_name"
+            class="w-full p-2 border border-gray-300 rounded-lg"
+            placeholder="{{ user.last_name }}"
+          />
+
+          <div *ngIf="errors.last_name" class="text-red-500 mt-1">
+            {{ errors.last_name[0] }}
+          </div>
+        </div>
+
+        <div class="form-group mb-6">
+          <label for="email" class="block text-gray-700 mb-2">Email</label>
+
+          <input
+            id="email"
+            formControlName="email"
+            class="w-full p-2 border border-gray-300 rounded-lg"
+            placeholder="{{ user.email }}"
+          />
+
+          <div *ngIf="errors.email" class="text-red-500 mt-1">
+            {{ errors.email[0] }}
+          </div>
+        </div>
+
+        <div class="flex justify-between">
+          <button
+            type="submit"
+            class="bg-blue-500 text-white px-4 py-2 rounded-lg"
+          >
+            Save Changes
+          </button>
+
+          <!-- <button type="button" (click)="goBack()" class="bg-gray-300 text-black px-4 py-2 rounded-lg">Go Back</button> -->
+        </div>
+      </form>
     </div>
-    <div class="form-group">
-      <label for="first_name">First Name</label>
-      <input
-        id="first_name"
-        formControlName="first_name"
-        class="form-control"
-        placeholder="{{ user.first_name }}"
-      />
-      <div *ngIf="errors.first_name" class="text-danger">
-        {{ errors.first_name[0] }}
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="last_name">Last Name</label>
-      <input
-        id="last_name"
-        formControlName="last_name"
-        class="form-control"
-        placeholder="{{ user.last_name }}"
-      />
-      <div *ngIf="errors.last_name" class="text-danger">
-        {{ errors.last_name[0] }}
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input
-        id="email"
-        formControlName="email"
-        class="form-control"
-        placeholder="{{ user.email }}"
-      />
-      <div *ngIf="errors.email" class="text-danger">
-        {{ errors.email[0] }}
-      </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-  </form>
+  </div>
 </div>

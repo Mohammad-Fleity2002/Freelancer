@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service'; // Make sure to create a service to handle authentication
+import { AuthService } from '../services/auth.service'; // Make sure to create a service to handle authentication
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-navbar',
