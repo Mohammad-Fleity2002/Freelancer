@@ -1,14 +1,34 @@
 {% extends "base.html" %} {% block title %} {%load static%}
 <title>Home</title>
 {% endblock title %} {% block content %}
-<div class="bg-image d-flex justify-content-center align-items-center" 
-style="background-image: url('{% static 'images/Freelancers.png' %}'); height: 93vh;">
+<div
+  class="bg_radial_2 d-flex justify-content-center align-items-center"
+  style="height: 100vh"
+>
+  <div
+    class="card text-center text-white p-5"
+    style="
+      max-width: 800px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+    "
+  >
+    <div class="card-header">
+      <h1>Welcome to Freelancer</h1>
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+        Our goal is to provide service by connecting you with top-tier
+        freelancers, contributing to the enhancement of your projects and ideas.
+      </p>
+      <a
+        href="{% url '_Services:search_service' %}"
+        class="btn btn-primary text-black"
+        style="background: #ffd700"
+        >start exploring services</a
+      >
+    </div>
+  </div>
 
-  <blockquote class="text-right blockquote">
-    <h3 class="text-white" style="width: 300px">
-      Welcome to the Freelancer Application. Our goal is to provide exemplary service by connecting you with top-tier freelancers, thus contributing to the enhancement of our nation's workforce.
-      Together, we strive towards fostering a thriving freelance ecosystem
-    </h3>
-  </blockquote>
+  {% endblock content %}
 </div>
-{% endblock content %}

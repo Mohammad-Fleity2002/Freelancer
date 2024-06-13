@@ -11,7 +11,7 @@ def search_service(request):
     if request.method == 'POST':
         if form.is_valid():
             service_type_code = form.cleaned_data['service_type']
-            area_code = form.cleaned_data['area']
+            area_code = form.cleaned_data['service_location']
             services = Service.objects.filter(
                 service_type=service_type_code, service_location=area_code)
             return render(request, '_Services/search_results.html', {'services': services, 'form': form})

@@ -21,14 +21,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 
-app_name = 'Freelancer'
+app_name = 'freelancer'
 handler404 = views.handler404
 handler500 = views.handler500
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', include('Authentication.urls')),
     path('search/', include('_Services.urls')),
-    path('user_profile/',include('user_profile.urls')),
+    path('user_profile/', include('user_profile.urls')),
     path('', views.home, name='home')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

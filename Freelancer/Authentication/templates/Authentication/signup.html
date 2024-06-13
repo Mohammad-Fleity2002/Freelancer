@@ -1,27 +1,6 @@
 {% extends "base.html" %} {% block title %}
 <title>Sign Up</title>
-{% endblock title %} {% block style %}
-<style>
-  .card-registration .select-input.form-control[readonly]:not([disabled]) {
-    font-size: 1rem;
-    line-height: 2.15;
-    padding-left: 0.75em;
-    padding-right: 0.75em;
-  }
-  .card-registration .select-arrow {
-    top: 13px;
-  }
-  .bg_radial_2 {
-    background: rgb(22, 13, 25);
-    background: linear-gradient(
-      90deg,
-      rgba(22, 13, 25, 1) 0%,
-      rgba(135, 81, 153, 1) 30%,
-      rgba(225, 135, 255, 1) 100%
-    );
-  }
-</style>
-{% endblock style %} {% block content %}
+{% endblock title %} {% block style %} {% endblock style %} {% block content %}
 <body class="bg_radial_2">
   <section class="h-100">
     {% if form.errors %}
@@ -31,7 +10,7 @@
       {% for field in form %} {{field.errors}} {% endfor %}
     </div>
     {%endif%}
-    <div class="row d-flex justify-content-center align-items-center">
+    <div class="row d-flex justify-content-center align-items-center mt-2">
       <div class="col-8">
         <div class="card rounded-3 text-black px-2">
           <div class="row">

@@ -45,7 +45,7 @@
     {% if user.is_authenticated %}
     <nav class="navbar navbar-expand-md py-1 bg-white navbar-light border border-2 border-purple">
       <div class="container-md py-1">
-          <a href="#intro" class="navbar-brand">
+          <a href="{% url 'home' %}" class="navbar-brand">
               <span class="fw-bold text-gold">Freelancer</span>
           </a>
           <button class="navbar-toggler bg-purple text-white" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="toggle navigation">

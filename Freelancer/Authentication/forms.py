@@ -37,7 +37,12 @@ class SignupForm(UserCreationForm):
         self.fields['username'].label = 'user Name'
         self.fields['last_name'].widget.attrs['class'] = 'form-control border border-dark border-1'
         self.fields['last_name'].label = 'Last Name'
-        self.fields['group'].widget.attrs['class'] = 'form-control border border-dark border-1'
+        self.fields['group'].choices = [('', 'Select a group')] + [
+            choice for choice in self.fields['group'].choices if choice[0] != ''
+        ]
+        self.fields['group'].widget.attrs.update({
+            'class': 'form-control border border-dark border-1 form-select'
+        })
 
 
 class changePassForm(forms.Form):
